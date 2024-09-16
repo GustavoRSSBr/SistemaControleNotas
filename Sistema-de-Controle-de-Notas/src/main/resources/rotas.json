@@ -1,0 +1,18 @@
+[
+  {
+    "path": "/scn/login",
+    "roles": []
+  },
+  {
+    "path": "/scn/professores/criar-avaliacao",
+    "roles": ["PROFESSOR"]
+  },
+  {
+    "path": "/scn/professores/cadastrar-professor",
+    "roles": ["ADMIN"]
+  },
+  {
+    "path": "/scn/alunos/cadastrar-aluno",
+    "roles": ["ADMIN", "PROFESSOR"]
+  }
+]
