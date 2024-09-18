@@ -14,5 +14,9 @@
   {
     "path": "/scn/alunos/cadastrar-aluno",
     "roles": ["ADMIN", "PROFESSOR"]
+  },
+  {
+    "path": "/scn/entregas/criar-entrega",
+    "roles": ["ALUNO"]
   }
 ]

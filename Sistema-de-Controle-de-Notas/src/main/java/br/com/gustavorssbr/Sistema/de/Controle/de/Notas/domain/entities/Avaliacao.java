@@ -1,6 +1,6 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErroDomain;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.exceptions.NegocioException;
 
 import java.time.LocalDateTime;
@@ -13,11 +13,11 @@ public class Avaliacao {
 
     public Avaliacao(String titulo, String descricao, LocalDateTime dataEntrega, Integer professorId) {
         if (dataEntrega.isBefore(LocalDateTime.now())) {
-            throw new NegocioException(MensagemErroDomain.DATA_ANTERIOR_ATUAL.getMensagem());
+            throw new NegocioException(MensagemErro.DATA_ANTERIOR_ATUAL.getMensagem());
         }
 
         if (titulo == null || titulo.trim().isEmpty()) {
-            throw new NegocioException(MensagemErroDomain.TITULO_NULO.getMensagem());
+            throw new NegocioException(MensagemErro.TITULO_NULO.getMensagem());
         }
 
         this.titulo = titulo;
