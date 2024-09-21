@@ -1,6 +1,9 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoRequestDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaRequestDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.IdResponseDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.StandardResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.input.avaliacao.IAvaliacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +17,25 @@ public class AvaliacaoController implements IAvaliacaoController {
     private IAvaliacao avaliacaoService;
 
     @PostMapping("/professores/criar-avaliacao")
-    public ResponseEntity<Integer> criarAvaliacao(@RequestBody AvaliacaoDTO avaliacaoDTO, @RequestHeader(value = "Authorization") String token) {
-        Integer idAvaliacao = avaliacaoService.criarAvaliacao(avaliacaoDTO, token);
-        return ResponseEntity.ok(idAvaliacao);
+    @Override
+    public ResponseEntity<?> criarAvaliacao(@RequestBody AvaliacaoRequestDTO avaliacaoRequestDTO, @RequestHeader(value = "Authorization") String token) {
+        IdResponseDTO responseId = new IdResponseDTO(avaliacaoService.criarAvaliacao(avaliacaoRequestDTO, token));
+        return ResponseEntity.ok(
+                StandardResponseDTO.builder()
+                        .messagem("Avaliação criada com sucesso!")
+                        .dados(responseId)
+                        .build()
+        );
+    }
+    @PostMapping("/professores/lancar-nota")
+    @Override
+    public ResponseEntity<?> criarNota(@RequestBody NotaRequestDTO notaRequestDTO, @RequestHeader(value = "Authorization") String token) {
+        IdResponseDTO responseId = new IdResponseDTO(avaliacaoService.lancarNota(notaRequestDTO, token));
+        return ResponseEntity.ok(
+                StandardResponseDTO.builder()
+                        .messagem("Nota lançada com sucesso!")
+                        .dados(responseId)
+                        .build()
+        );
     }
 }

@@ -18,5 +18,9 @@
   {
     "path": "/scn/entregas/criar-entrega",
     "roles": ["ALUNO"]
+  },
+  {
+    "path": "/scn/professores/lancar-nota",
+    "roles": ["PROFESSOR"]
   }
 ]

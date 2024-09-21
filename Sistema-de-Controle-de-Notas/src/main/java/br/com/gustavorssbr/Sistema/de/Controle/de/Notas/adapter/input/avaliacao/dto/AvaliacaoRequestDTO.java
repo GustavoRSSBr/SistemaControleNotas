@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AvaliacaoDTO {
+public class AvaliacaoRequestDTO {
     private String titulo;
     private String descricao;
     private String dataEntrega; // Receber a data como String

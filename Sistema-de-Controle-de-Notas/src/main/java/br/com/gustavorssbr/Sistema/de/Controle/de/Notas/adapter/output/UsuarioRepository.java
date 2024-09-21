@@ -30,21 +30,21 @@ public class UsuarioRepository implements IUsuarioRepository {
     public Usuario obterPorEmail(String email) {
         String sql = "SELECT * FROM OBTER_USUARIO_POR_EMAIL(?)";
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{email}, usuarioRowMapper);
+            return jdbcTemplate.queryForObject(sql, usuarioRowMapper, email);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
 
-    @Override
-    public Integer salvar(Usuario usuario) {
-        String sql = "SELECT CRIAR_USUARIO(?, ?, ?, ?)";
 
-        return jdbcTemplate.queryForObject(sql, new Object[]{
+    @Override
+    public void salvar(Usuario usuario) {
+        String sql = "CALL CRIAR_USUARIO(?, ?, ?, ?)";
+        jdbcTemplate.update(sql,
                 usuario.getNome(),
                 usuario.getEmail(),
                 usuario.getSenha(),
                 usuario.getTipoUsuario().toString()
-        }, Integer.class);
+        );
     }
 }

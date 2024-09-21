@@ -1,14 +1,14 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.command;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.AlunoDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.LoginDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.ProfessorDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.exceptions.NegocioException;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.input.service.IUsuario;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.AlunoRequestDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.LoginRequestDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.ProfessorRequestDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Usuario;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.TipoUsuario;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.exceptions.NegocioException;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.input.seguranca.ISegurancaConfig;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.input.usuario.IUsuario;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.output.usuario.IUsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,44 +24,44 @@ public class UsuarioCommand implements IUsuario {
     }
 
     @Override
-    public String autenticar(LoginDTO loginDTO) {
-        Usuario usuario = usuarioRepository.obterPorEmail(loginDTO.getEmail());
-        if (usuario != null && segurancaConfig.compararSenhaHash(loginDTO.getSenha(), usuario.getSenha())) {
+    public String autenticar(LoginRequestDTO loginRequestDTO) {
+        Usuario usuario = usuarioRepository.obterPorEmail(loginRequestDTO.getEmail());
+        if (usuario != null && segurancaConfig.compararSenhaHash(loginRequestDTO.getSenha(), usuario.getSenha())) {
             return segurancaConfig.gerarToken(usuario);
         }
         throw new NegocioException(MensagemErro.EMAIL_USUARIO_INVALIDO.getMensagem());
     }
 
     @Override
-    public Integer cadastrarAluno(AlunoDTO alunoDTO) {
-        if (usuarioRepository.obterPorEmail(alunoDTO.getEmail()) != null) {
+    public void cadastrarAluno(AlunoRequestDTO alunoRequestDTO) {
+        if (usuarioRepository.obterPorEmail(alunoRequestDTO.getEmail()) != null) {
             throw new NegocioException(MensagemErro.EMAIL_JA_CADASTRADO.getMensagem());
         }
 
-        String senhaHash = segurancaConfig.criptografarSenha(alunoDTO.getSenha());
+        String senhaHash = segurancaConfig.criptografarSenha(alunoRequestDTO.getSenha());
         Usuario aluno = new Usuario(
-                alunoDTO.getNome(),
-                alunoDTO.getEmail(),
+                alunoRequestDTO.getNome(),
+                alunoRequestDTO.getEmail(),
                 senhaHash,
                 TipoUsuario.ALUNO
         );
 
-        return usuarioRepository.salvar(aluno);
+        usuarioRepository.salvar(aluno);
     }
 
     @Override
-    public Integer cadastrarProfessor(ProfessorDTO professorDTO) {
-        if (usuarioRepository.obterPorEmail(professorDTO.getEmail()) != null) {
+    public void cadastrarProfessor(ProfessorRequestDTO professorRequestDTO) {
+        if (usuarioRepository.obterPorEmail(professorRequestDTO.getEmail()) != null) {
             throw new NegocioException(MensagemErro.EMAIL_JA_CADASTRADO.getMensagem());
         }
-        String senhaHash = segurancaConfig.criptografarSenha(professorDTO.getSenha());
+        String senhaHash = segurancaConfig.criptografarSenha(professorRequestDTO.getSenha());
         Usuario professor = new Usuario(
-                professorDTO.getNome(),
-                professorDTO.getEmail(),
+                professorRequestDTO.getNome(),
+                professorRequestDTO.getEmail(),
                 senhaHash,
                 TipoUsuario.PROFESSOR
         );
 
-        return usuarioRepository.salvar(professor);
+        usuarioRepository.salvar(professor);
     }
 }

@@ -1,8 +1,8 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.AlunoDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.LoginDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.ProfessorDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.AlunoRequestDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.LoginRequestDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.ProfessorRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,7 +16,7 @@ public interface IUsuarioController {
             @ApiResponse(responseCode = "400", description = "Dados de login inválidos"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    ResponseEntity<String> login(LoginDTO loginDTO);
+    ResponseEntity<?> login(LoginRequestDTO loginRequestDTO);
 
     @Operation(summary = "Cadastro de professor", description = "Cadastra um novo professor no sistema.")
     @ApiResponses(value = {
@@ -24,7 +24,7 @@ public interface IUsuarioController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos para cadastro do professor"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    ResponseEntity<Integer> cadastrarProfessor(ProfessorDTO professorDTO);
+    ResponseEntity<?> cadastrarProfessor(ProfessorRequestDTO professorRequestDTO);
 
     @Operation(summary = "Cadastro de aluno", description = "Cadastra um novo aluno no sistema.")
     @ApiResponses(value = {
@@ -32,5 +32,5 @@ public interface IUsuarioController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos para cadastro do aluno"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    ResponseEntity<Integer> cadastrarAluno(AlunoDTO alunoDTO);
+    ResponseEntity<?> cadastrarAluno(AlunoRequestDTO alunoRequestDTO);
 }

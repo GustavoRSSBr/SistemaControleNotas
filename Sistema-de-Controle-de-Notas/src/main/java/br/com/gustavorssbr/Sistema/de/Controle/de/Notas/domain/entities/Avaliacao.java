@@ -20,8 +20,8 @@ public class Avaliacao {
             throw new NegocioException(MensagemErro.TITULO_NULO.getMensagem());
         }
 
-        this.titulo = titulo;
-        this.descricao = descricao;
+        this.titulo = titulo.trim();
+        this.descricao = descricao.trim();
         this.dataEntrega = dataEntrega;
         this.professorId = professorId;
     }

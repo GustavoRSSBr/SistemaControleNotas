@@ -1,6 +1,6 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.entrega;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.entrega.dto.EntregaDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.entrega.dto.EntregaRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -14,6 +14,6 @@ public interface IEntregaController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos para criação da entrega"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    ResponseEntity<Integer> criarEntrega(EntregaDTO entregaDTO, String token);
+    ResponseEntity<?> criarEntrega(EntregaRequestDTO entregaRequestDTO, String token);
 }
 

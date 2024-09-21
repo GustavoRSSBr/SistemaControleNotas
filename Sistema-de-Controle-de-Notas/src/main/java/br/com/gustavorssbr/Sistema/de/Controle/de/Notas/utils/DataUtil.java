@@ -1,4 +1,4 @@
-package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.util;
+package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils;
 
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.exceptions.NegocioException;

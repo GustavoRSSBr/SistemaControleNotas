@@ -3,7 +3,7 @@ package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Usuario;
 
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.TipoUsuario;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.JwtDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.JwtResponseDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -28,18 +28,18 @@ public class JwtUtil {
                 .compact();
     }
 
-    public static JwtDTO decodeToken(String token) {
+    public static JwtResponseDTO decodeToken(String token) {
         Jws<Claims> jws = Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()
                 .parseClaimsJws(token);
         Claims claims = jws.getBody();
 
-        JwtDTO jwtDTO = new JwtDTO();
-        jwtDTO.setId(claims.get("id", Integer.class));
-        jwtDTO.setEmail(claims.get("email", String.class));
-        jwtDTO.setTipoUsuario(TipoUsuario.valueOf(claims.get("tipoUsuario", String.class)));
+        JwtResponseDTO jwtResponseDTO = new JwtResponseDTO();
+        jwtResponseDTO.setId(claims.get("id", Integer.class));
+        jwtResponseDTO.setEmail(claims.get("email", String.class));
+        jwtResponseDTO.setTipoUsuario(TipoUsuario.valueOf(claims.get("tipoUsuario", String.class)));
 
-        return jwtDTO;
+        return jwtResponseDTO;
     }
 }

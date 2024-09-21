@@ -1,9 +1,9 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.exception.MensagemErroAplicacao;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.TipoUsuario;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.CustomErrorResponse;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.JwtDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.ErrorAutenticacaoResponseDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.JwtResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils.ErrorResponseFactory;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils.JwtUtil;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils.RotasUtil;
@@ -33,12 +33,6 @@ public class SistemaControleNotaFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String path = request.getServletPath();
-        if (path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
         if (!checkPathExistence(request)) {
             response.sendError(HttpStatus.NOT_FOUND.value());
             return;
@@ -51,8 +45,8 @@ public class SistemaControleNotaFilter extends OncePerRequestFilter {
             } else {
                 try {
                     String token = request.getHeader("Authorization").replace("Bearer ", "");
-                    JwtDTO jwtDTO = JwtUtil.decodeToken(token);
-                    TipoUsuario tipoUsuario = jwtDTO.getTipoUsuario();
+                    JwtResponseDTO jwtResponseDTO = JwtUtil.decodeToken(token);
+                    TipoUsuario tipoUsuario = jwtResponseDTO.getTipoUsuario();
 
                     if (!isRoleAuthorized(request, tipoUsuario)) {
                         sendForbiddenResponse(response, request);
@@ -71,6 +65,9 @@ public class SistemaControleNotaFilter extends OncePerRequestFilter {
 
     private boolean checkPathExistence(HttpServletRequest request) {
         String servletPath = request.getServletPath();
+        if (servletPath.contains("/swagger") || servletPath.contains("/api")) {
+            return true;
+        }
         return RotasUtil.getRotas(resourceLoader).containsKey(servletPath);
     }
 
@@ -98,18 +95,18 @@ public class SistemaControleNotaFilter extends OncePerRequestFilter {
     private void sendBadRequestResponse(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        CustomErrorResponse errorResponse
+        ErrorAutenticacaoResponseDTO errorResponse
                 = ErrorResponseFactory
-                .createResponseError(MensagemErroAplicacao.DESC_BAD_REQUEST_HEADERS.getMensagem(), request.getServletPath(), HttpStatus.BAD_REQUEST.value());
+                .createResponseError(MensagemErro.DESC_BAD_REQUEST_HEADERS.getMensagem(), request.getServletPath(), HttpStatus.BAD_REQUEST.value());
         response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
     }
 
     private void sendForbiddenResponse(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        CustomErrorResponse errorResponse = ErrorResponseFactory
+        ErrorAutenticacaoResponseDTO errorResponse = ErrorResponseFactory
                 .createResponseError(
-                        MensagemErroAplicacao.DESC_ROLE_SEM_PERMISSAO.getMensagem(),
+                        MensagemErro.DESC_ROLE_SEM_PERMISSAO.getMensagem(),
                         request.getServletPath(),
                         HttpStatus.FORBIDDEN.value()
                 );
@@ -119,9 +116,9 @@ public class SistemaControleNotaFilter extends OncePerRequestFilter {
     private void sendInvalidTokenResponse(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        CustomErrorResponse errorResponse
+        ErrorAutenticacaoResponseDTO errorResponse
                 = ErrorResponseFactory.createResponseError(
-                MensagemErroAplicacao.DESC_TOKEN_INVALIDO.getMensagem(), request.getServletPath(), HttpStatus.BAD_REQUEST.value());
+                MensagemErro.DESC_TOKEN_INVALIDO.getMensagem(), request.getServletPath(), HttpStatus.BAD_REQUEST.value());
         response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
     }
 }

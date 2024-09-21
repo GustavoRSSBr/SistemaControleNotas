@@ -12,7 +12,19 @@ public enum MensagemErro {
     ID_INVALIDO_AVALIACAO("Avaliação não existe"),
     CONTEUDO_VAZIO("Conteudo vazio"),
     AVALIACAO_NAO_EXISTE("Avaliação não existe"),
-    ENTREGA_JA_EXISTE("Já foi feita uma entrega para essa avaliação");
+    ENTREGA_NAO_EXISTE("Entrega não existe"),
+    ENTREGA_JA_EXISTE("Já foi feita uma entrega para essa avaliação"),
+    NEGOCIO_EXCEPTION("Erro de negócio: "),
+    APLICACAO_EXCEPTION("Erro de aplicação: "),
+    GENERIC_ERROR("Ocorreu um erro inesperado. Por favor, tente novamente mais tarde."),
+    DESC_BAD_REQUEST_HEADERS("Efetue o login corretamente"),
+    DESC_ROLE_SEM_PERMISSAO("Sem permissão para acessar a rota"),
+    DESC_TOKEN_INVALIDO("Token inválido"),
+    ENTREGA_NAO_PERTENCE_AO_PROFESSOR("Essa entrega não pertence a uma avaliação do professor logado"),
+    NOTA_INVALIDA("Nota inválida, a nota deve estar entre 0 e 10"),
+    JA_EXISTE_NOTA("Já existe uma nota para essa entrega"),
+    TEMPO_ENTREGA_EXPIRADO("O tempo para a entrega expirou.");
+
 
     private final String mensagem;
 

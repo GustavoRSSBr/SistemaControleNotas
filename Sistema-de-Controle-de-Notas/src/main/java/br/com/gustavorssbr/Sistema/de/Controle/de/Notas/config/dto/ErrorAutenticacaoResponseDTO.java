@@ -14,13 +14,13 @@ import java.util.Locale;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor
-public class CustomErrorResponse implements ErrorResponse {
+public class ErrorAutenticacaoResponseDTO implements ErrorResponse {
 
     private String mensagem;
     private String path;
     private Integer code;
 
-    public CustomErrorResponse(String mensagem, String path, Integer code) {
+    public ErrorAutenticacaoResponseDTO(String mensagem, String path, Integer code) {
         this.mensagem = mensagem;
         this.path = path;
         this.code = code;

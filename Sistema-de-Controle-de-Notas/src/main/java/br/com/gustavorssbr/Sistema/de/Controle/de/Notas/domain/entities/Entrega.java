@@ -12,12 +12,12 @@ public class Entrega {
         if (idAluno == null || idAvaliacao == null) {
             throw new NegocioException(MensagemErro.ID_INVALIDO_AVALIACAO.getMensagem());
         }
-        if (conteudo == null || conteudo.isEmpty()) {
+        if (conteudo == null || conteudo.trim().isEmpty()) {
             throw new NegocioException(MensagemErro.CONTEUDO_VAZIO.getMensagem());
         }
         this.idAluno = idAluno;
         this.idAvaliacao = idAvaliacao;
-        this.conteudo = conteudo;
+        this.conteudo = conteudo.trim();
     }
 
     public Integer getIdAluno() {

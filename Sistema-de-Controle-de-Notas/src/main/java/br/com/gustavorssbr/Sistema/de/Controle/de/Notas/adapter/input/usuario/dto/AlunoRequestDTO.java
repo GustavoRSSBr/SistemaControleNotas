@@ -5,12 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
-public class ProfessorDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class AlunoRequestDTO {
     private String email;
     private String nome;
     private String senha;
+
 }
