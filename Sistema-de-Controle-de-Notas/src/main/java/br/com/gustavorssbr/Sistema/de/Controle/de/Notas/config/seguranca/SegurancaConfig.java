@@ -1,4 +1,4 @@
-package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config;
+package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.seguranca;
 
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Usuario;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.input.seguranca.ISegurancaConfig;
