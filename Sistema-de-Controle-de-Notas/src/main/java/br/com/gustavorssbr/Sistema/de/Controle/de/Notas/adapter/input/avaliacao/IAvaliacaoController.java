@@ -24,4 +24,20 @@ public interface IAvaliacaoController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     ResponseEntity<?> criarNota(NotaRequestDTO notaRequestDTO, String token);
+
+    @Operation(summary = "Listar Avaliações", description = "Todos conseguem listar as avaliações disponíveis")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Avalições encontradas"),
+        @ApiResponse(responseCode = "400", description = "Nenhuma avaliação encontrada"),
+        @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    ResponseEntity<?> listarAvaliacoes();
+
+    @Operation(summary = "Buscar Nota", description = "Alunos conseguem verificar a nota da sua entrega")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Nota encontrada"),
+            @ApiResponse(responseCode = "400", description = "dado invalido ou sem permissão"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    ResponseEntity<?> buscarNota(String token, int idEntrega);
 }

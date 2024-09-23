@@ -1,13 +1,16 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.output;
 
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoResponseDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Avaliacao;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Nota;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.output.avaliacao.IAvaliacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class AvaliacaoRepository implements IAvaliacaoRepository {
@@ -55,5 +58,22 @@ public class AvaliacaoRepository implements IAvaliacaoRepository {
         return jdbcTemplate.queryForObject(sql, Boolean.class, idEntrega);
     }
 
+    @Override
+    public List<AvaliacaoResponseDTO> listarAvaliacoes() {
+        String sql = "SELECT * FROM LISTAR_AVALIACOES()";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(AvaliacaoResponseDTO.class));
+    }
+
+    @Override
+    public boolean verificarEntregaAssociada(int idAluno, int idEntrega) {
+        String sql = "SELECT VERIFICAR_ENTREGA_ASSOCIADA(?, ?)";
+        return jdbcTemplate.queryForObject(sql, Boolean.class, idAluno, idEntrega);
+    }
+
+    @Override
+    public NotaResponseDTO retornarInformacoesNotaPorEntrega(int idEntrega) {
+        String sql = "SELECT * FROM RETORNAR_INFORMACOES_NOTA_ENTREGA(?)";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(NotaResponseDTO.class), idEntrega);
+    }
 
 }

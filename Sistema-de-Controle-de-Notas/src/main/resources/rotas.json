@@ -22,5 +22,17 @@
   {
     "path": "/scn/professores/lancar-nota",
     "roles": ["PROFESSOR"]
+  },
+  {
+    "path": "/scn/listar-avaliacoes",
+    "roles": ["ADMIN", "PROFESSOR", "ALUNO"]
+  },
+  {
+    "path": "/scn/aluno/buscar-nota",
+    "roles": ["ALUNO"]
+  },
+  {
+    "path": "/scn/entregas/listar-entregas",
+    "roles": ["PROFESSOR"]
   }
 ]

@@ -23,7 +23,12 @@ public enum MensagemErro {
     ENTREGA_NAO_PERTENCE_AO_PROFESSOR("Essa entrega não pertence a uma avaliação do professor logado"),
     NOTA_INVALIDA("Nota inválida, a nota deve estar entre 0 e 10"),
     JA_EXISTE_NOTA("Já existe uma nota para essa entrega"),
-    TEMPO_ENTREGA_EXPIRADO("O tempo para a entrega expirou.");
+    TEMPO_ENTREGA_EXPIRADO("O tempo para a entrega expirou."),
+    SEM_AVALIACOES("Nenhuma avaliação encontrada"),
+    NAO_EXISTE_NOTA("Essa entrega ainda não contém uma nota"),
+    ALUNO_SEM_PERMISSAO_NOTA("O aluno logado não pode ver as notas de outros alunos, exceto a dele."),
+    PROFESSOR_SEM_PERMISSAO_ENTREGA("O professor só poderá ver as entregas de suas avaliações"),
+    LISTA_ENTREGA_VAZIA("Ainda não há entregas para essa avaliação");
 
 
     private final String mensagem;

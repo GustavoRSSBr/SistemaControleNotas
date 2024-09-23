@@ -1,7 +1,9 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.command;
 
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoRequestDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaRequestDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Avaliacao;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Nota;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
@@ -13,6 +15,7 @@ import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils.DataUtil;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AvaliacaoCommand implements IAvaliacao {
@@ -64,6 +67,37 @@ public class AvaliacaoCommand implements IAvaliacao {
         );
 
         return avaliacaoRepository.lancarNota(nota);
+    }
+
+    @Override
+    public List<AvaliacaoResponseDTO> listarAvaliacoes(){
+        List<AvaliacaoResponseDTO> avaliacaoes = avaliacaoRepository.listarAvaliacoes();
+
+        if(avaliacaoes.isEmpty()){
+            throw new NegocioException(MensagemErro.SEM_AVALIACOES.getMensagem());
+        }
+
+        return avaliacaoes;
+    }
+
+    @Override
+    public NotaResponseDTO buscarNota(String token, int idEntrega){
+
+        if (!avaliacaoRepository.existeEntrega(idEntrega)){
+            throw new NegocioException(MensagemErro.ENTREGA_NAO_EXISTE.getMensagem());
+        }
+
+        int idAluno = segurancaConfig.buscarIdToken(token);
+
+        if (!avaliacaoRepository.verificarEntregaAssociada(idAluno, idEntrega)){
+            throw new NegocioException(MensagemErro.ALUNO_SEM_PERMISSAO_NOTA.getMensagem());
+        }
+
+        if (!avaliacaoRepository.existeNotaNaEntrega(idEntrega)) {
+            throw new NegocioException(MensagemErro.NAO_EXISTE_NOTA.getMensagem());
+        }
+
+        return avaliacaoRepository.retornarInformacoesNotaPorEntrega(idEntrega);
     }
 
 }

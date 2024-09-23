@@ -1,9 +1,9 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.TipoUsuario;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.ErrorAutenticacaoResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.JwtResponseDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.TipoUsuario;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils.ErrorResponseFactory;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils.JwtUtil;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.utils.RotasUtil;
@@ -12,6 +12,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ import java.util.List;
 public class SistemaControleNotaFilter extends OncePerRequestFilter {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final Logger logger = LoggerFactory.getLogger(SistemaControleNotaFilter.class);
     @Autowired
     private ResourceLoader resourceLoader;
 
@@ -54,7 +57,7 @@ public class SistemaControleNotaFilter extends OncePerRequestFilter {
                     }
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error("Erro ao decodificar o token JWT: {}", e.getMessage(), e);
                     sendInvalidTokenResponse(response, request);
                     return;
                 }

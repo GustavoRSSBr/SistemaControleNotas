@@ -15,5 +15,13 @@ public interface IEntregaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     ResponseEntity<?> criarEntrega(EntregaRequestDTO entregaRequestDTO, String token);
+
+    @Operation(summary = "Listar entregas da avaliação", description = "O professor poderá listar todas as entregas de sua avaliação")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Entregas encontradas"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos ou entregas vazias"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    ResponseEntity<?> listarEntregas(String token, int idAvaliacao);
 }
 

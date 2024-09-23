@@ -32,7 +32,7 @@ public class UsuarioController implements IUsuarioController {
     }
 
     @Override
-    @PostMapping("/professores/cadastrar-professor")
+    @PostMapping("/admin/cadastrar-professor")
     public ResponseEntity<?> cadastrarProfessor(@RequestBody ProfessorRequestDTO professorRequestDTO) {
         usuarioService.cadastrarProfessor(professorRequestDTO);
         return ResponseEntity.ok(
