@@ -6,6 +6,7 @@ import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.IdResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.StandardResponseDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemSucesso;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.input.avaliacao.IAvaliacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class AvaliacaoController implements IAvaliacaoController {
         IdResponseDTO responseId = new IdResponseDTO(avaliacaoService.criarAvaliacao(avaliacaoRequestDTO, token));
         return ResponseEntity.ok(
                 StandardResponseDTO.builder()
-                        .messagem("Avaliação criada com sucesso!")
+                        .messagem(MensagemSucesso.CRIAR_AVALIACAO.getMensagem())
                         .dados(responseId)
                         .build()
         );
@@ -37,7 +38,7 @@ public class AvaliacaoController implements IAvaliacaoController {
         IdResponseDTO responseId = new IdResponseDTO(avaliacaoService.lancarNota(notaRequestDTO, token));
         return ResponseEntity.ok(
                 StandardResponseDTO.builder()
-                        .messagem("Nota lançada com sucesso!")
+                        .messagem(MensagemSucesso.CRIAR_NOTA.getMensagem())
                         .dados(responseId)
                         .build()
         );
@@ -49,7 +50,7 @@ public class AvaliacaoController implements IAvaliacaoController {
         List<AvaliacaoResponseDTO> avaliacoes = avaliacaoService.listarAvaliacoes();
         return ResponseEntity.ok(
                 StandardResponseDTO.builder()
-                        .messagem("Avaliações encontradas com sucesso!")
+                        .messagem(MensagemSucesso.LISTAR_AVALIACAO.getMensagem())
                         .dados(avaliacoes)
                         .build()
         );
@@ -61,7 +62,7 @@ public class AvaliacaoController implements IAvaliacaoController {
         NotaResponseDTO nota = avaliacaoService.buscarNota(token, idEntrega);
         return ResponseEntity.ok(
                 StandardResponseDTO.builder()
-                        .messagem("Nota encontrada com sucesso!")
+                        .messagem(MensagemSucesso.BUSCAR_NOTA.getMensagem())
                         .dados(nota)
                         .build()
         );

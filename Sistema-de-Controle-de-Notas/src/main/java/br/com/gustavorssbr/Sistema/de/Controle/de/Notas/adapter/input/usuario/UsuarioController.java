@@ -5,6 +5,7 @@ import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dt
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.ProfessorRequestDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.config.dto.StandardResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.usuario.dto.TokenResponseDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemSucesso;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.input.usuario.IUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class UsuarioController implements IUsuarioController {
         TokenResponseDTO tokenResponseDTO = new TokenResponseDTO(usuarioService.autenticar(loginRequestDTO));
         return ResponseEntity.ok(
                 StandardResponseDTO.builder()
-                        .messagem("Login realizado com sucesso!")
+                        .messagem(MensagemSucesso.LOGIN.getMensagem())
                         .dados(tokenResponseDTO)
                         .build()
         );
@@ -37,7 +38,7 @@ public class UsuarioController implements IUsuarioController {
         usuarioService.cadastrarProfessor(professorRequestDTO);
         return ResponseEntity.ok(
                 StandardResponseDTO.builder()
-                        .messagem("Professor cadastrado com sucesso!")
+                        .messagem(MensagemSucesso.CADASTRAR_PROFESSOR.getMensagem())
                         .build()
         );
     }
@@ -48,7 +49,7 @@ public class UsuarioController implements IUsuarioController {
         usuarioService.cadastrarAluno(alunoRequestDTO);
         return ResponseEntity.ok(
                 StandardResponseDTO.builder()
-                        .messagem("Aluno cadastrado com sucesso!")
+                        .messagem(MensagemSucesso.CADASTRAR_ALUNO.getMensagem())
                         .build()
         );
     }

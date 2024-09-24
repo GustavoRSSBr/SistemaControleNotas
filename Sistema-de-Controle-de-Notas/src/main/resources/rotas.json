@@ -8,7 +8,7 @@
     "roles": ["PROFESSOR"]
   },
   {
-    "path": "/scn/professores/cadastrar-professor",
+    "path": "/scn/admin/cadastrar-professor",
     "roles": ["ADMIN"]
   },
   {
@@ -16,7 +16,7 @@
     "roles": ["ADMIN", "PROFESSOR"]
   },
   {
-    "path": "/scn/entregas/criar-entrega",
+    "path": "/scn/entregas/alunos/criar-entrega",
     "roles": ["ALUNO"]
   },
   {
@@ -28,11 +28,11 @@
     "roles": ["ADMIN", "PROFESSOR", "ALUNO"]
   },
   {
-    "path": "/scn/aluno/buscar-nota",
+    "path": "/scn/alunos/buscar-nota",
     "roles": ["ALUNO"]
   },
   {
-    "path": "/scn/entregas/listar-entregas",
+    "path": "/scn/entregas/professores/listar-entregas",
     "roles": ["PROFESSOR"]
   }
 ]
