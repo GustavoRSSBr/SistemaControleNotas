@@ -25,16 +25,23 @@ public class UsuarioCommand implements IUsuario {
 
     @Override
     public String autenticar(LoginRequestDTO loginRequestDTO) {
+        if (!usuarioRepository.existeUsuario(loginRequestDTO.getEmail())) {
+            throw new NegocioException(MensagemErro.EMAIL_USUARIO_INVALIDO.getMensagem());
+        }
+
         Usuario usuario = usuarioRepository.obterPorEmail(loginRequestDTO.getEmail());
-        if (usuario != null && segurancaConfig.compararSenhaHash(loginRequestDTO.getSenha(), usuario.getSenha())) {
+
+        if (segurancaConfig.compararSenhaHash(loginRequestDTO.getSenha(), usuario.getSenha())) {
             return segurancaConfig.gerarToken(usuario);
         }
-        throw new NegocioException(MensagemErro.EMAIL_USUARIO_INVALIDO.getMensagem());
+
+        throw new NegocioException(MensagemErro.SENHA_USUARIO_INCORRETA.getMensagem());
+
     }
 
     @Override
     public void cadastrarAluno(AlunoRequestDTO alunoRequestDTO) {
-        if (usuarioRepository.obterPorEmail(alunoRequestDTO.getEmail()) != null) {
+        if (usuarioRepository.existeUsuario(alunoRequestDTO.getEmail())) {
             throw new NegocioException(MensagemErro.EMAIL_JA_CADASTRADO.getMensagem());
         }
 
@@ -51,7 +58,7 @@ public class UsuarioCommand implements IUsuario {
 
     @Override
     public void cadastrarProfessor(ProfessorRequestDTO professorRequestDTO) {
-        if (usuarioRepository.obterPorEmail(professorRequestDTO.getEmail()) != null) {
+        if (usuarioRepository.existeUsuario(professorRequestDTO.getEmail())) {
             throw new NegocioException(MensagemErro.EMAIL_JA_CADASTRADO.getMensagem());
         }
         String senhaHash = segurancaConfig.criptografarSenha(professorRequestDTO.getSenha());

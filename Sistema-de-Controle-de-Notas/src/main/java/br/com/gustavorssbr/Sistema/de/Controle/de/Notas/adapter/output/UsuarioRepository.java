@@ -4,7 +4,7 @@ import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Usuario;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.TipoUsuario;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.output.usuario.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -15,25 +15,16 @@ public class UsuarioRepository implements IUsuarioRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private final RowMapper<Usuario> usuarioRowMapper = (rs, rowNum) -> {
-        Usuario usuario = new Usuario(
-                rs.getString("NOME_USUARIO"),
-                rs.getString("EMAIL_USUARIO"),
-                rs.getString("SENHA_HASH_USUARIO"),
-                TipoUsuario.valueOf(rs.getString("TIPO_USUARIO").toUpperCase())
-        );
-        usuario.setIdUsuario(rs.getInt("ID_USUARIO"));
-        return usuario;
-    };
-
     @Override
     public Usuario obterPorEmail(String email) {
         String sql = "SELECT * FROM OBTER_USUARIO_POR_EMAIL(?)";
-        try {
-            return jdbcTemplate.queryForObject(sql, usuarioRowMapper, email);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Usuario.class), email);
+    }
+
+    @Override
+    public boolean existeUsuario(String email) {
+        String sql = "SELECT EXISTE_USUARIO(?)";
+        return jdbcTemplate.queryForObject(sql, Boolean.class, email);
     }
 
 

@@ -26,7 +26,7 @@ public enum MensagemErro {
     NAO_EXISTE_NOTA("Essa entrega ainda não contém uma nota"),
     ALUNO_SEM_PERMISSAO_NOTA("O aluno logado não pode ver as notas de outros alunos, exceto a dele."),
     PROFESSOR_SEM_PERMISSAO_ENTREGA("O professor só poderá ver as entregas de suas avaliações"),
-    LISTA_ENTREGA_VAZIA("Ainda não há entregas para essa avaliação");
+    LISTA_ENTREGA_VAZIA("Ainda não há entregas para essa avaliação"), SENHA_USUARIO_INCORRETA("Senha incorreta.");
 
 
     private final String mensagem;
