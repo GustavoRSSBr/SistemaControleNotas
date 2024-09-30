@@ -19,7 +19,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(NegocioException.class)
     @ResponseBody
     public ResponseEntity<ErrorResponseDTO> handleNegocioException(NegocioException ex) {
-        logger.error("NegocioException: {}", ex.getMessage(), ex);
+        logger.error("NegocioException: {}", ex.getMessage());
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
@@ -27,7 +27,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(AplicacaoException.class)
     @ResponseBody
     public ResponseEntity<ErrorResponseDTO> handleAplicacaoException(AplicacaoException ex) {
-        logger.error("AplicacaoException: {}", ex.getMessage(), ex);
+        logger.error("AplicacaoException: {}", ex.getMessage());
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
@@ -35,7 +35,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<ErrorResponseDTO> handleGenericException(Exception ex) {
-        logger.error("Exception: {}", ex.getMessage(), ex);
+        logger.error("Exception: {}", ex.getMessage());
         String messagem = MensagemErro.GENERIC_ERROR.getMensagem();
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(messagem);
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);

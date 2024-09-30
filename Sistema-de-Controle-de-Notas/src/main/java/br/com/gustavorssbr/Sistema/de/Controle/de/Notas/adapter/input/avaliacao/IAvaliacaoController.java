@@ -1,11 +1,15 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao;
 
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AtualizaNotaRequestDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoRequestDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 public interface IAvaliacaoController {
 
@@ -40,4 +44,13 @@ public interface IAvaliacaoController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     ResponseEntity<?> buscarNota(String token, int idEntrega);
+
+    @Operation(summary = "Atualizar Nota", description = "Professores podem alterar as notas das entregas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Nota atualizada"),
+            @ApiResponse(responseCode = "400", description = "dado invalido ou sem permissão"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @PatchMapping("/professores/atualizar-nota")
+    ResponseEntity<?> atualizarNota(@RequestHeader(value = "Authorization") String token, @RequestBody AtualizaNotaRequestDTO novaNota);
 }

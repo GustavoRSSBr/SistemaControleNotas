@@ -28,13 +28,15 @@ import java.util.List;
 public class SistemaControleNotaFilter extends OncePerRequestFilter {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private static final Logger logger = LoggerFactory.getLogger(SistemaControleNotaFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SistemaControleNotaFilter.class);
     @Autowired
     private ResourceLoader resourceLoader;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        LOGGER.info("Início do método doFilterInternal");
+
 
         if (!checkPathExistence(request)) {
             response.sendError(HttpStatus.NOT_FOUND.value());
@@ -57,7 +59,7 @@ public class SistemaControleNotaFilter extends OncePerRequestFilter {
                     }
 
                 } catch (Exception e) {
-                    logger.error("Erro ao decodificar o token JWT: {}", e.getMessage(), e);
+                    LOGGER.error("Erro ao decodificar o token JWT: {}", e.getMessage());
                     sendInvalidTokenResponse(response, request);
                     return;
                 }

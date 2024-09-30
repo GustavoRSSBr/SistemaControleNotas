@@ -9,7 +9,8 @@ public enum MensagemSucesso {
     LISTAR_ENTREGA("Entregas encontradas com sucesso!"),
     LOGIN("Login realizado com sucesso!"),
     CADASTRAR_PROFESSOR("Professor cadastrado com sucesso!"),
-    CADASTRAR_ALUNO("Aluno cadastrado com sucesso!");
+    CADASTRAR_ALUNO("Aluno cadastrado com sucesso!"),
+    NOTA_ATUALIZADA("Nota atualizada com sucesso");
 
 
 

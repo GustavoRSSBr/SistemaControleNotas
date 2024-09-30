@@ -6,13 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AvaliacaoRequestDTO {
-    private String titulo;
-    private String descricao;
-    private String dataEntrega;
-
+@Builder
+public class AtualizaNotaRequestDTO {
+    Integer idNota;
+    Double valorNota;
+    String feedback;
 }
-

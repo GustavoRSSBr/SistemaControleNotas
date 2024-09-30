@@ -23,10 +23,12 @@ public enum MensagemErro {
     JA_EXISTE_NOTA("Já existe uma nota para essa entrega"),
     TEMPO_ENTREGA_EXPIRADO("O tempo para a entrega expirou."),
     SEM_AVALIACOES("Nenhuma avaliação encontrada"),
-    NAO_EXISTE_NOTA("Essa entrega ainda não contém uma nota"),
+    NAO_EXISTE_NOTA_ENTREGA("Essa entrega ainda não contém uma nota"),
     ALUNO_SEM_PERMISSAO_NOTA("O aluno logado não pode ver as notas de outros alunos, exceto a dele."),
     PROFESSOR_SEM_PERMISSAO_ENTREGA("O professor só poderá ver as entregas de suas avaliações"),
-    LISTA_ENTREGA_VAZIA("Ainda não há entregas para essa avaliação"), SENHA_USUARIO_INCORRETA("Senha incorreta.");
+    LISTA_ENTREGA_VAZIA("Ainda não há entregas para essa avaliação"), SENHA_USUARIO_INCORRETA("Senha incorreta."),
+    NAO_EXISTE_NOTA("Nota não existe"),
+    PROFESSOR_SEM_PERMISSAO_NOTA("O professor não tem permissão para alterar uma nota que não é de sua avaliacao");
 
 
     private final String mensagem;

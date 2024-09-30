@@ -18,7 +18,6 @@ public class RotasUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(RotasUtil.class);
 
-
     public static Map<String, List<TipoUsuario>> getRotas(ResourceLoader resourceLoader) {
         Map<String, List<TipoUsuario>> pathsAndRoles = new HashMap<>();
         Resource resource = resourceLoader.getResource("classpath:rotas.json");
@@ -32,6 +31,7 @@ public class RotasUtil {
             }
         } catch (IOException e) {
             logger.error("Erro ao ler o arquivo de rotas: ", e);
+            throw new RuntimeException(e);
         }
         return pathsAndRoles;
     }

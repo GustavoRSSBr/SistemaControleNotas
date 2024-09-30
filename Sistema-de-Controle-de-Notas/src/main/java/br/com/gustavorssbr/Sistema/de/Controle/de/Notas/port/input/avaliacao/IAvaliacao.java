@@ -1,9 +1,6 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.input.avaliacao;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoRequestDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoResponseDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaRequestDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaResponseDTO;
+import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.*;
 
 import java.util.List;
 
@@ -16,4 +13,6 @@ public interface IAvaliacao {
     List<AvaliacaoResponseDTO> listarAvaliacoes();
 
     NotaResponseDTO buscarNota(String token, int idEntrega);
+
+    void atualizarNota(String token, AtualizaNotaRequestDTO novaNota);
 }

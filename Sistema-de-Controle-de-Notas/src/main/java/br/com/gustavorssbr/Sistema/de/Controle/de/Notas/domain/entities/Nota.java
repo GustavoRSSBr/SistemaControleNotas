@@ -1,25 +1,17 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.exceptions.NegocioException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Nota {
     private Integer idNota;
     private Integer idEntrega;
     private Double nota;
     private String feedback;
-
-    public Nota(Integer idEntrega, Double nota, String feedback) {
-        if(nota == null || nota.isNaN() || nota > 10 || nota < 0){
-            throw new NegocioException(MensagemErro.NOTA_INVALIDA.getMensagem());
-        }
-
-        this.idEntrega = idEntrega;
-        this.nota = nota;
-        this.feedback = feedback;
-    }
 
     public Integer getIdNota() {
         return idNota;
@@ -51,5 +43,15 @@ public class Nota {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
+    }
+
+    @Override
+    public String toString() {
+        return "Nota{" +
+                "idNota=" + idNota +
+                ", idEntrega=" + idEntrega +
+                ", nota=" + nota +
+                ", feedback='" + feedback + '\'' +
+                '}';
     }
 }

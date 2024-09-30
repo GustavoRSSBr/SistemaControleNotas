@@ -34,5 +34,9 @@
   {
     "path": "/scn/entregas/professores/listar-entregas",
     "roles": ["PROFESSOR"]
+  },
+  {
+    "path": "/scn/professores/atualizar-nota",
+    "roles": ["PROFESSOR"]
   }
 ]
