@@ -1,10 +1,8 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.output;
 
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.AvaliacaoController;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AtualizaNotaRequestDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.AvaliacaoResponseDTO;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.NotaResponseDTO;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.entrega.EntregaController;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Avaliacao;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Nota;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.port.output.avaliacao.IAvaliacaoRepository;
@@ -28,14 +26,13 @@ public class AvaliacaoRepository implements IAvaliacaoRepository {
     @Override
     public Integer criarAvaliacao(Avaliacao avaliacao) {
         LOGGER.info("Início do método criarAvaliacao com request de dados da avaliacao");
-
-        String sql = "SELECT CRIAR_AVALIACAO(?, ?, ?, ?)";
-        return jdbcTemplate.queryForObject(sql, Integer.class,
-                avaliacao.getTitulo(),
-                avaliacao.getDescricao(),
-                avaliacao.getDataEntrega(),
-                avaliacao.getProfessorId()
-        );
+            String sql = "SELECT CRIAR_AVALIACAO(?, ?, ?, ?)";
+            return jdbcTemplate.queryForObject(sql, Integer.class,
+                    avaliacao.getTitulo(),
+                    avaliacao.getDescricao(),
+                    avaliacao.getDataEntrega(),
+                    avaliacao.getProfessorId()
+            );
     }
 
 

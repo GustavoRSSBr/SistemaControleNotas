@@ -5,3 +5,5 @@ public class AplicacaoException extends RuntimeException {
         super(mensagem);
     }
 }
+
+

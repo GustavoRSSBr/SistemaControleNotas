@@ -1,7 +1,6 @@
 package br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.command;
 
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.input.avaliacao.dto.*;
-import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.adapter.output.AvaliacaoRepository;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Avaliacao;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.entities.Nota;
 import br.com.gustavorssbr.Sistema.de.Controle.de.Notas.domain.enums.MensagemErro;
@@ -34,8 +33,6 @@ public class AvaliacaoCommand implements IAvaliacao {
         this.gson = gson;
 
     }
-
-    // Gson - biblioteca de conversão de objetos para json do google
 
     @Override
     public Integer criarAvaliacao(AvaliacaoRequestDTO avaliacaoRequestDTO, String token) {
@@ -173,6 +170,7 @@ public class AvaliacaoCommand implements IAvaliacao {
         if(novaNota.getValorNota() == null || novaNota.getValorNota() > 10 || novaNota.getValorNota() < 0){
             throw new NegocioException(MensagemErro.NOTA_INVALIDA.getMensagem());
         }
+
 
         avaliacaoRepository.atualizarNota(novaNota);
     }
