@@ -20,6 +20,7 @@ import java.util.List;
 @Service
 public class AvaliacaoCommand implements IAvaliacao {
 
+
     private final IAvaliacaoRepository avaliacaoRepository;
     private final ISegurancaConfig segurancaConfig;
 

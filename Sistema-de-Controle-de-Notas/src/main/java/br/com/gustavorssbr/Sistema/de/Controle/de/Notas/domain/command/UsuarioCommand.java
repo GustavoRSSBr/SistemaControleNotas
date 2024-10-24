@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioCommand implements IUsuario {
 
+
     private final IUsuarioRepository usuarioRepository;
     private final ISegurancaConfig segurancaConfig;
     private static final Logger LOGGER = LoggerFactory.getLogger(AvaliacaoCommand.class);
